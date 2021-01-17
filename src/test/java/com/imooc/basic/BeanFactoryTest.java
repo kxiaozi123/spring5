@@ -3,6 +3,8 @@ package com.imooc.basic;
 import com.imooc.basic.factoryBean.ConnectionFactoryBean;
 import com.imooc.basic.model.Account;
 import com.imooc.basic.model.Customer;
+import com.imooc.basic.model.Product;
+import com.imooc.basic.model.User;
 import com.imooc.basic.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -50,6 +52,8 @@ public class BeanFactoryTest {
     public void test2()
     {
         ApplicationContext ctx=new ClassPathXmlApplicationContext("/applicationContext2.xml");
+        Connection connection = ctx.getBean("connection", Connection.class);
+        System.out.println(connection);
 //        Customer customer = ctx.getBean("customer", Customer.class);
 //        System.out.println(customer);
 //        Connection connection = ctx.getBean("conn", Connection.class);
@@ -58,5 +62,23 @@ public class BeanFactoryTest {
 //        Account account2 = ctx.getBean("account", Account.class);
 //        System.out.println(account1);
 //        System.out.println(account2);
+    }
+    @Test
+    public void test3()
+    {
+        ClassPathXmlApplicationContext cxt=new ClassPathXmlApplicationContext("/applicationContext3.xml");
+        Product product = cxt.getBean("product", Product.class);
+        System.out.println(product);
+        cxt.close();
+    }
+    @Test
+    public void test4()
+    {
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("/applicationContext3.xml");
+        Account account = ctx.getBean("account", Account.class);
+        System.out.println(account);
+//        User user = ctx.getBean("user", User.class);
+//        System.out.println(user);
+
     }
 }
