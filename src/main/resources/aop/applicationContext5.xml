@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+        <bean class="com.imooc.basic.aop.factory.MemberServiceImpl" id="memberService"/>
+        <bean class="com.imooc.basic.aop.factory.ProxyBeanPostProcessor" id="postProcessor"/>
+        <!-- 笔记
+        Aop创建动态代理的方式 1.JDK动态代理 2.CgLib方式
+        Spring工厂是如何加工代理对象的
+        通过BeanPostProcessor
+        -->
+
+</beans>

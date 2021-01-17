@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="person" name="p" class="com.imooc.basic.aop.model.Person" p:name="123">
+        <property name="id" value="10"/>
+<!--        <property name="name" value="xjr"/>-->
+        <property name="emails">
+            <list>
+                <value>511158469@qq.com</value>
+                <value>632520364@qq.com</value>
+                <value>15868059868@qq.com</value>
+            </list>
+        </property>
+        <property name="tels">
+            <set>
+                <value>15868059868</value>
+                <value>15868059868</value>
+                <value>15868059869</value>
+            </set>
+        </property>
+        <property name="address">
+            <list>
+                <value>杭州市西湖区1</value>
+                <value>杭州市西湖区2</value>
+                <value>杭州市西湖区3</value>
+            </list>
+        </property>
+        <property name="qqs">
+            <map>
+                <entry key="kk" value="15868059868"/>
+                <entry key="kk2" value="15868059868"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="key1">value1</prop>
+                <prop key="key2">value2</prop>
+            </props>
+        </property>
+    </bean>
+<!--    <bean id="person2" class="com.imooc.basic.aop.model.Person"/>-->
+    <bean id="userService" class="com.imooc.basic.aop.service.UserServiceImpl" p:userDao-ref="userDao">
+<!--        <property name="userDao" ref="userDao"/>-->
+    </bean>
+<!--    <bean id="userDao" class="com.imooc.basic.aop.dao.UserDaoImpl"/>-->
+
+
+
+</beans>

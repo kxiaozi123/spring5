@@ -1,50 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="person" name="p" class="com.imooc.basic.model.Person" p:name="123">
-        <property name="id" value="10"/>
-<!--        <property name="name" value="xjr"/>-->
-        <property name="emails">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--连接池信息 -->
+     <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
+         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+         <property name="url" value="jdbc:mysql://localhost:3306/mall?useSSL=false"/>
+         <property name="username" value="root"/>
+         <property name="password" value="123456"/>
+     </bean>
+    <!--sqlSessionFactoryBean信息 -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.imooc.basic.mybatis.entity"/>
+        <property name="mapperLocations">
             <list>
-                <value>511158469@qq.com</value>
-                <value>632520364@qq.com</value>
-                <value>15868059868@qq.com</value>
+                <value>classpath:mapper/*Mapper.xml</value>
             </list>
         </property>
-        <property name="tels">
-            <set>
-                <value>15868059868</value>
-                <value>15868059868</value>
-                <value>15868059869</value>
-            </set>
-        </property>
-        <property name="address">
-            <list>
-                <value>杭州市西湖区1</value>
-                <value>杭州市西湖区2</value>
-                <value>杭州市西湖区3</value>
-            </list>
-        </property>
-        <property name="qqs">
-            <map>
-                <entry key="kk" value="15868059868"/>
-                <entry key="kk2" value="15868059868"/>
-            </map>
-        </property>
-        <property name="properties">
-            <props>
-                <prop key="key1">value1</prop>
-                <prop key="key2">value2</prop>
-            </props>
-        </property>
     </bean>
-<!--    <bean id="person2" class="com.imooc.basic.model.Person"/>-->
-    <bean id="userService" class="com.imooc.basic.service.UserServiceImpl" p:userDao-ref="userDao">
-<!--        <property name="userDao" ref="userDao"/>-->
+    <!-- dao MapperScannerConfigurer信息 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+        <property name="basePackage" value="com.imooc.basic.mybatis.dao"/>
     </bean>
-    <bean id="userDao" class="com.imooc.basic.dao.UserDaoImpl"/>
-
-
+    <bean id="userService" class="com.imooc.basic.mybatis.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="dataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 
 </beans>
