@@ -1,11 +1,9 @@
 package com.imooc.basic;
 
-import com.imooc.basic.factoryBean.ConnectionFactoryBean;
-import com.imooc.basic.model.Account;
-import com.imooc.basic.model.Customer;
+import com.imooc.basic.aspect.MemberService;
+import com.imooc.basic.dynamic.OrderService;
 import com.imooc.basic.model.Product;
-import com.imooc.basic.model.User;
-import com.imooc.basic.service.UserService;
+import com.imooc.basic.staticProxy.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -74,11 +72,29 @@ public class BeanFactoryTest {
     @Test
     public void test4()
     {
-        ApplicationContext ctx=new ClassPathXmlApplicationContext("/applicationContext3.xml");
-        Account account = ctx.getBean("account", Account.class);
-        System.out.println(account);
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("/applicationContext4.xml");
+        OrderService orderService = ctx.getBean("orderService", OrderService.class);
+        orderService.register();
+        orderService.login();
+//        UserService userService=
+//                (UserService)ctx.getBean("userService");
+//        userService.login();
+//        userService.register();
+//        UserServiceProxy proxy = ctx.getBean("proxy", UserServiceProxy.class);
+//        proxy.login();
+//        proxy.register();
+//        Account account = ctx.getBean("account", Account.class);
+//        System.out.println(account);
 //        User user = ctx.getBean("user", User.class);
 //        System.out.println(user);
 
+    }
+    @Test
+    public void test5()
+    {
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("/applicationContext6.xml");
+        MemberService mermberService = ctx.getBean("memberService", MemberService.class);
+        mermberService.login();
+        //mermberService.register();
     }
 }
